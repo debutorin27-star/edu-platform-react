@@ -196,16 +196,20 @@ body.modal-open { overflow: hidden; }
 .catalog-hero .section-title { margin-bottom: 0; }
 .catalog-hero--courses { background: radial-gradient(circle at 75% 20%, #e8eaff 0, transparent 26%), linear-gradient(180deg,#f7f8ff 0,#fff 100%); }
 .filters { display: grid; grid-template-columns: minmax(260px,1fr) minmax(220px,.8fr) auto; align-items: center; gap: 12px; padding: 16px; border: 1px solid var(--line); border-radius: 20px; background: #fff; box-shadow: 0 14px 36px rgba(38,49,84,.07); }
-.search-field { display: flex; align-items: center; gap: 9px; min-height: 48px; padding: 0 14px; border: 1px solid var(--line); border-radius: 13px; background: #fff; }
+.filters > * { min-width: 0; }
+.search-field { display: flex; align-items: center; gap: 9px; min-height: 48px; padding: 0 14px; border: 1px solid var(--line); border-radius: 13px; background: #fff; transition: border-color .2s ease, box-shadow .2s ease; }
+.search-field:focus-within { border-color: #9aaeff; box-shadow: 0 0 0 3px #edf1ff; }
 .search-field span { color: var(--muted); font-size: 24px; line-height: 1; transform: translateY(-1px); }
-.search-field input { width: 100%; border: 0; outline: none; background: transparent; color: var(--ink); }
+.search-field input { width: 100%; min-width: 0; border: 0; outline: none; background: transparent; color: var(--ink); }
 .search-field--hero { max-width: 720px; margin-top: 32px; box-shadow: 0 12px 32px rgba(38,49,84,.08); }
-.filters select { min-height: 48px; border: 1px solid var(--line); border-radius: 13px; padding: 0 13px; color: var(--ink); background: #fff; outline: none; }
+.filters select { width: 100%; min-width: 0; min-height: 48px; border: 1px solid var(--line); border-radius: 13px; padding: 0 13px; color: var(--ink); background: #fff; outline: none; }
 .segmented { display: flex; padding: 4px; border-radius: 13px; background: var(--soft); }
 .segmented button { border: 0; padding: 10px 12px; border-radius: 9px; background: transparent; color: var(--muted); font-weight: 700; font-size: 13px; }
 .segmented button.active { background: #fff; color: var(--blue); box-shadow: 0 3px 12px rgba(30,45,90,.08); }
 .result-line { display: flex; justify-content: space-between; align-items: center; min-height: 58px; margin: 10px 0 12px; }
 .result-line button { border: 0; background: transparent; color: var(--blue); font-weight: 700; }
+.result-line button:hover { color: var(--blue-dark); }
+.result-actions { display: flex; align-items: center; justify-content: flex-end; gap: 16px; flex-wrap: wrap; }
 .empty-state { padding: 80px 20px; text-align: center; border: 1px dashed #cfd5e4; border-radius: 20px; color: var(--muted); }
 .empty-state strong { color: var(--ink); font-size: 24px; }
 
@@ -342,6 +346,8 @@ body.modal-open { overflow: hidden; }
   .filters { grid-template-columns: 1fr; }
   .segmented { grid-column: auto; overflow-x: auto; width: 100%; }
   .segmented button { flex: 1; white-space: nowrap; }
+  .result-line { align-items: flex-start; gap: 8px; }
+  .result-actions { justify-content: flex-start; gap: 10px; }
   .course-card { grid-template-columns: 48px 1fr; }
   .modal-backdrop { padding: 12px; }
   .modal { max-height: calc(100vh - 24px); padding: 24px; border-radius: 22px; }

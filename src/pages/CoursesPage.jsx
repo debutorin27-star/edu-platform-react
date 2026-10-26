@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import SectionTitle from '../components/SectionTitle.jsx';
+import TextField from '../components/TextField.jsx';
 
 export default function CoursesPage({ courses, lecturers, onOpenLecturer, onBook }) {
   const [query, setQuery] = useState('');
@@ -26,10 +27,14 @@ export default function CoursesPage({ courses, lecturers, onOpenLecturer, onBook
             title="Лекции и дисциплины"
             text="30 программ из задания: от алгоритмов и машинного обучения до архитектуры, психологии и международных отношений."
           />
-          <label className="search-field search-field--hero">
-            <span>⌕</span>
-            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Поиск по программе, теме или преподавателю" />
-          </label>
+          <TextField
+            className="search-field search-field--hero"
+            icon="⌕"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Поиск по программе, теме или преподавателю"
+            aria-label="Поиск по программам"
+          />
         </div>
       </section>
 

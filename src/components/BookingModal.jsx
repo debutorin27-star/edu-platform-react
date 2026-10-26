@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import TextField from './TextField.jsx';
 
 export default function BookingModal({ lecturer, onClose }) {
   const [sent, setSent] = useState(false);
@@ -31,14 +32,20 @@ export default function BookingModal({ lecturer, onClose }) {
               Оставьте контакты. Мы свяжемся с вами, чтобы обсудить детали и подобрать подходящего лектора.
             </p>
             <form className="booking-form" onSubmit={submit}>
-              <label>
-                Ваше имя
-                <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Дмитрий" />
-              </label>
-              <label>
-                Телефон или e-mail
-                <input required value={form.contact} onChange={(e) => setForm({ ...form, contact: e.target.value })} placeholder="name@example.ru" />
-              </label>
+              <TextField
+                label="Ваше имя"
+                required
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                placeholder="Дмитрий"
+              />
+              <TextField
+                label="Телефон или e-mail"
+                required
+                value={form.contact}
+                onChange={(e) => setForm({ ...form, contact: e.target.value })}
+                placeholder="name@example.ru"
+              />
               <label>
                 Формат занятия
                 <select value={form.format} onChange={(e) => setForm({ ...form, format: e.target.value })}>

@@ -1,11 +1,13 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import LecturerCard from '../components/LecturerCard.jsx';
 import SectionTitle from '../components/SectionTitle.jsx';
+import TextField from '../components/TextField.jsx';
 
 export default function LecturersPage({ lecturers, onOpenLecturer, onBook }) {
   const [query, setQuery] = useState('');
   const [course, setCourse] = useState('Все дисциплины');
   const [gender, setGender] = useState('all');
+  const searchRef = useRef(null);
 
   const courses = useMemo(
     () => ['Все дисциплины', ...Array.from(new Set(lecturers.flatMap((item) => item.courses.map((c) => c.title)))).sort()],
@@ -24,6 +26,17 @@ export default function LecturersPage({ lecturers, onOpenLecturer, onBook }) {
     });
   }, [lecturers, query, course, gender]);
 
+  const hasFilters = Boolean(query || course !== 'Все дисциплины' || gender !== 'all');
+
+  const focusSearch = () => searchRef.current?.focus();
+
+  const resetFilters = () => {
+    setQuery('');
+    setCourse('Все дисциплины');
+    setGender('all');
+    focusSearch();
+  };
+
   return (
     <main className="page-main">
       <section className="catalog-hero">
@@ -39,10 +52,15 @@ export default function LecturersPage({ lecturers, onOpenLecturer, onBook }) {
       <section className="section section--catalog">
         <div className="container">
           <div className="filters">
-            <label className="search-field">
-              <span>⌕</span>
-              <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Имя или дисциплина" />
-            </label>
+            <TextField
+              ref={searchRef}
+              className="search-field"
+              icon="⌕"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Имя или дисциплина"
+              aria-label="Поиск лекторов"
+            />
             <select value={course} onChange={(e) => setCourse(e.target.value)}>
               {courses.map((item) => <option key={item}>{item}</option>)}
             </select>
@@ -55,9 +73,12 @@ export default function LecturersPage({ lecturers, onOpenLecturer, onBook }) {
 
           <div className="result-line">
             <strong>Найдено: {filtered.length}</strong>
-            {(query || course !== 'Все дисциплины' || gender !== 'all') && (
-              <button type="button" onClick={() => { setQuery(''); setCourse('Все дисциплины'); setGender('all'); }}>Сбросить фильтры</button>
-            )}
+            <div className="result-actions">
+              <button type="button" onClick={focusSearch}>Фокус на поле</button>
+              {hasFilters && (
+                <button type="button" onClick={resetFilters}>Сбросить фильтры</button>
+              )}
+            </div>
           </div>
 
           {filtered.length > 0 ? (
